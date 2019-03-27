@@ -176,7 +176,7 @@ public:
         Algorithm () {
             // default parameters
             SubopEps = 1.0;
-            
+
             // node hash table
             AllNodesSet.set_equal_to_function (this); // will call this->operator()(const NodeType& n1, const NodeType& n2)
             AllNodesSet.set_hash_function (this, &Algorithm::getHashBin); // will call this->getHashBin(const NodeType& n)
@@ -186,6 +186,9 @@ public:
             
             ProgressShowInterval = 10000;
         }
+
+        // Virtual destructor
+        virtual ~Algorithm() = default;
         
         // Main search functions
         void search (void);
