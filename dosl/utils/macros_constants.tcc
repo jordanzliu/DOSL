@@ -309,7 +309,7 @@ public:
                 if ( DOSL_RUNTIME_VERBOSE_SWITCH  &&  _is_verbose_on(__func__, _DOSL_VERBOSE_FUN_DEPTH+(dl)) ) { \
                     fun_verbose.init (__func__,dl); \
                     printf("\n"); print_indentation(0); \
-                    printf(_BLUE "function: %s. level: %d." BLUE_, fun_verbose.funcname, fun_verbose.verbose_level);\
+                    printf(_BLUE "function: %s. level: %d." BLUE_, fun_verbose.funcname, fun_verbose.verbose_level); \ 
                     std::cout << std::endl; \
                 }
 #endif
@@ -348,9 +348,6 @@ void decrease_indentation (void) { if (GLOBAL_INDENTATION>0) --GLOBAL_INDENTATIO
 // --
 
 bool _dosl_is_tab_printed = false;
-
-// disable DOSL printf because we compile with Werror=format=
-#define _dosl_printf
 
 #ifndef _dosl_printf
 #define _dosl_printf(...) { if(!_dosl_is_tab_printed) DOSL_INDENT; \
