@@ -119,7 +119,7 @@ public:
         void nodeEvent (unsigned int e) { }
         #endif
         inline void print (std::string head="", std::string tail="") {
-            _dosl_printf(_GREEN "%s (%x) %s" GREEN_, head.c_str(), this, tail.c_str());
+            _dosl_printf(_GREEN "%s (%p) %s" GREEN_, head.c_str(), this, tail.c_str());
         }
         // Derived functions. Can also be directly overwritten.
         inline CostType getHeapKey (double subopEps) { return (G + (CostType)(subopEps*getHeuristics())); }
@@ -186,6 +186,8 @@ public:
             
             ProgressShowInterval = 10000;
         }
+
+        virtual ~Algorithm() = default;
         
         // Main search functions
         void search (void);
@@ -248,7 +250,7 @@ void ThetaStar::Algorithm<nodeType,costType>::GenerateSuccessors (NodeType* node
         
         #if _DOSL_DEBUG > 0
         if (thisSuccessors.size()!=thisTransitionCosts.size())
-            _dosl_err("Number of successors (%d) is different from numer of transition costs (%d) as returned by 'getSuccessors'.", thisSuccessors.size(), thisTransitionCosts.size());
+            _dosl_err("Number of successors (%zd) is different from numer of transition costs (%zd) as returned by 'getSuccessors'.", thisSuccessors.size(), thisTransitionCosts.size());
         #endif
         
         nodeInHash_p->Successors.reserve (thisSuccessors.size()); // reserve space for fast pushing
@@ -333,7 +335,7 @@ void ThetaStar::Algorithm<nodeType,costType>::search (void)
         // Generate the neighbours if they are already not generated
         GenerateSuccessors (thisNodeInHash_p);
         if (_dosl_verbose_on(1)) {
-            _dosl_printf("Number of successors = %d.", thisNodeInHash_p->Successors.size());
+            _dosl_printf("Number of successors = %zd.", thisNodeInHash_p->Successors.size());
         }
         
         // -----------------------------------------------------
@@ -480,7 +482,7 @@ std::vector<nodeType*> ThetaStar::Algorithm<nodeType,costType>::reconstructPoint
     // Reconstruct path
     NodeType* thisNodeInHash_p = AllNodesSet.get(n);
     if (_dosl_verbose_on(0))  n.print("Reconstruct path called on ");
-    if (_dosl_verbose_on(1))  _dosl_printf("Node in hash: %x.", thisNodeInHash_p);
+    if (_dosl_verbose_on(1))  _dosl_printf("Node in hash: %p.", thisNodeInHash_p);
     while (thisNodeInHash_p) {
         if (_dosl_verbose_on(1)) thisNodeInHash_p->print();
         thisPath.push_back (thisNodeInHash_p);

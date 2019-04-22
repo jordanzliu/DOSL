@@ -309,7 +309,7 @@ public:
                 if ( DOSL_RUNTIME_VERBOSE_SWITCH  &&  _is_verbose_on(__func__, _DOSL_VERBOSE_FUN_DEPTH+(dl)) ) { \
                     fun_verbose.init (__func__,dl); \
                     printf("\n"); print_indentation(0); \
-                    printf(_BLUE "function: %s. level: %d." BLUE_, fun_verbose.funcname, fun_verbose.verbose_level); \ 
+                    printf(_BLUE "function: %s. level: %d." BLUE_, fun_verbose.funcname, fun_verbose.verbose_level);\
                     std::cout << std::endl; \
                 }
 #endif
